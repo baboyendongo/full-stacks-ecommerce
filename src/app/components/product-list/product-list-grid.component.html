@@ -1,0 +1,55 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div *ngFor="let tempProducts of products" class="col-md-3">
+                    <div class="product-box">
+                        <a routerLink="/products/{{tempProducts.id}}">
+                            <img src="{{tempProducts.image_url}}" class="img-responsive">
+                        </a>
+                        <a routerLink="/products/{{tempProducts.id}}">
+                            <h1> {{tempProducts.name }}</h1>
+                        </a>
+                        <div class="price"> {{ tempProducts.unit_price|currency:"USD"}}</div>
+                        <a class="primary-btn" (click)="AddToCar(tempProducts)">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="products?.length==0;" class="alert alert-warning col-md-12" role="alert">
+                No Products found
+            </div>
+
+        </div>
+        <!-- being Pagination -->
+        <div class="footer-pagination">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Cette colonne est actuellement vide, mais elle peut être utilisée pour du contenu futur -->
+                </div>
+                <div class="col-md-6">
+                    <div class="row justify-content-center">
+                        <div class="col-md-9 pagination-container">
+                            <ngb-pagination  [(page)]="thePageNumber" [maxSize]="5" [collectionSize]="theTotalElements" [boundaryLinks]="true" [pageSize]="thePageSize" (pageChange)="listProducts()">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- end  Pagination -->
+        <div class="col-md-3 mt-2"  style="text-align: right;">
+            <span class="mr-2"> Page Size</span>
+            <select #MyPageSelected (change)="updatePageSize(MyPageSelected.value)">
+                <option>2</option>
+                <option  selected>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+            </select>
+        </div>
+
+    </div>
+</div>
